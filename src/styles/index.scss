@@ -1,0 +1,10 @@
+$bg-color: white;
+body {
+	background-color: $bg-color;
+	.wrap {
+		height: 100px;
+		background-image: url('../public/imgs/a.jpg');
+		background-repeat: no-repeat;
+		background-size: 100px 100px;
+	}
+}
