@@ -3,13 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-	mode: 'development',
+	devtool: 'source-map',
 	entry: {
 		main: './src/index.js',
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: '[name].bundle.js',
+		publicPath: '/',
 	},
 	module: {
 		rules: [
@@ -32,7 +33,6 @@ module.exports = {
 				use: {
 					loader: 'file-loader',
 					options: {
-						publicPath: './public/imgs',
 						outputPath: './public/imgs',
 						name: '[name].[ext]?[hash]',
 					},
@@ -54,6 +54,11 @@ module.exports = {
 		}),
 		new CleanWebpackPlugin(),
 	],
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+		},
+	},
 	devServer: {
 		contentBase: path.join(__dirname, 'dist'),
 		publicPath: '/',
@@ -64,6 +69,7 @@ module.exports = {
 		port: 8080,
 		stats: 'errors-only',
 		historyApiFallback: true,
+		// writeToDisk: true,
 		proxy: {
 			'/api': 'http://localhost:3000', // 프록시
 		},
